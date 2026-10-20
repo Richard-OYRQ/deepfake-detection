@@ -1,0 +1,5 @@
+f=open('D:/DeepFake/generate_extras.py','r',encoding='utf-8')
+c=f.read(); f.close()
+c=c.replace('‘',"'").replace('’',"'").replace('“','"').replace('”','"')
+open('D:/DeepFake/generate_extras.py','w',encoding='utf-8').write(c)
+print('OK')
