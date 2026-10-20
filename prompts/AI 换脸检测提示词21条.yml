@@ -1,0 +1,221 @@
+deepfake_detection_rules:
+  - category: edge_and_blending
+    name: 面部边缘模糊/色块/锯齿
+    description: 检测面部轮廓是否出现模糊、颜色异常块状区域或锯齿状边缘。
+    weight: 10
+    keywords:
+      - blurry_edge
+      - color_block
+      - jagged_outline
+    advanced_hint: 注意发际线和下颌角在运动帧中的‘重影’或‘虚化带’
+
+  - category: texture_and_resolution
+    name: 皮肤过度平滑/无毛孔/纹理重复
+    description: 判断皮肤是否缺乏真实微观纹理，呈现塑料感或重复性图案。
+    weight: 14
+    keywords:
+      - over_smooth_skin
+      - no_pores
+      - texture_repetition
+    advanced_hint: 使用局部自相似性分析检测脸颊区域是否存在周期性纹理模式
+
+  - category: lip_sync_and_motion
+    name: 嘴部动作与语音不同步/唇形僵硬
+    description: 检查口型变化是否与音频发音匹配，是否存在机械式运动。
+    weight: 15
+    keywords:
+      - lip_sync_error
+      - rigid_lips
+      - mouth_stiffness
+    advanced_hint: 观察嘴角是否伴随情绪产生自然拉伸，而非孤立张合
+
+  - category: lighting_and_shadow
+    name: 光影方向与背景矛盾/阴影位置错误
+    description: 验证面部光照方向是否与环境光源一致，阴影投射是否符合物理规律。
+    weight: 14
+    keywords:
+      - inconsistent_lighting
+      - wrong_shadow_direction
+      - shadow_mismatch
+    advanced_hint: 对比双眼瞳孔反光点大小与位置是否对称，反映单光源一致性
+
+  - category: hair_and_occlusion
+    name: 头发边缘毛边/断层/动态不匹配
+    description: 观察发丝边缘是否有断裂、毛刺或随头部运动时未正确跟随。
+    weight: 10
+    keywords:
+      - frayed_hair_edges
+      - hair_breaks
+      - hair_motion_mismatch
+    advanced_hint: 注意发根处是否过于均匀，缺乏头皮毛细结构
+
+  - category: eye_behavior
+    name: 眼球呆滞/瞳孔反光异常/眨眼频率异常
+    description: 检测眼睛是否缺乏自然聚焦，瞳孔反光点是否合理，眨眼节奏是否正常。
+    weight: 13
+    keywords:
+      - staring_eyes
+      - abnormal_pupil_reflection
+      - blink_irregularity
+    advanced_hint: 双目反光点应同步且几何对称，避免一侧偏大或偏移
+
+  - category: temporal_coherence
+    name: 帧间面部特征突变/表情卡顿/闪烁
+    description: 在连续帧中检查面部是否有突然变形、表情跳变或视觉闪烁现象。
+    weight: 16
+    keywords:
+      - face_jump
+      - expression_stutter
+      - flickering_face
+    advanced_hint: 使用帧差分析检测嘴角、下巴等区域是否存在‘水波纹’或‘拖影’效应
+
+  - category: anatomy_and_proportion
+    name: 头身比异常/颈部色差/动态脱节
+    description: 评估头部与身体比例是否协调，颈部肤色是否与面部一致，运动是否连贯。
+    weight: 12
+    keywords:
+      - head_body_ratio_issue
+      - neck_color_discrepancy
+      - neck_detachment
+    advanced_hint: 注意颈后与衣领交界处是否存在‘硬边’阴影或纹理缺失
+
+  - category: anatomy_and_proportion
+    name: 耳朵扭曲/颈部色差/颈部纹理缺失
+    description: 检查耳朵形状是否自然，颈部是否有纹理缺失或色差问题。
+    weight: 9
+    keywords:
+      - distorted_ears
+      - neck_texture_missing
+      - neck_color_shift
+    advanced_hint: 耳垂比例应符合人体解剖学，边缘不应模糊或断裂
+
+  - category: background_consistency
+    name: 背景物体错位/动态粘连/背景模糊
+    description: 判断背景中的家具、物品是否与前景人物存在空间错位或动态粘连。
+    weight: 11
+    keywords:
+      - object_misalignment
+      - background_sticking
+      - unrealistic_blur
+    advanced_hint: 人物移动时，背景物体不应出现‘轻微漂移’或‘被拖拽’现象
+
+  - category: micro_expression
+    name: 微表情缺失/肌肉运动僵硬/眨眼异常
+    description: 分析是否缺少细微情绪变化，面部肌肉运动是否生硬或不自然。
+    weight: 15
+    keywords:
+      - lack_micro_expressions
+      - muscle_stiffness
+      - abnormal_blinking
+    advanced_hint: 真实微笑应伴随眼角鱼尾纹形成，AI常仅动嘴唇
+
+  - category: color_and_tone
+    name: 肤色与背景冲突/帧间色差波动
+    description: 检测面部肤色是否与整体环境色调冲突，或在不同帧之间出现明显色偏。
+    weight: 10
+    keywords:
+      - skin_tone_conflict
+      - color_drift_between_frames
+    advanced_hint: 使用 HSV/YUV 分离分析，检测红色通道是否过饱和
+
+  - category: deformation_and_artifacts
+    name: 面部拉伸/撕裂/运动脱节
+    description: 识别面部是否发生非自然拉伸、撕裂或肢体与头部运动不同步。
+    weight: 13
+    keywords:
+      - face_stretch
+      - tearing_effect
+      - motion_disconnect
+    advanced_hint: 注意快速动作中是否存在‘像素抖动’或‘拓扑失真’
+
+  - category: facial_details
+    name: 眉毛蜡笔画/睫毛重复/饰品错位
+    description: 检查眉毛是否过于整齐如画，睫毛是否有重复图案，佩戴物是否位置错误。
+    weight: 8
+    keywords:
+      - pencil_brows
+      - repeated_lashes
+      - accessory_misplacement
+    advanced_hint: 睫毛应有自然弯曲弧度，AI常生成根根分明但无曲率的‘假睫毛’
+
+  - category: advanced_forensics
+    name: 皮肤纹理周期性重复（模式崩溃）
+    description: 检测面部平坦区是否存在周期性纹理模式，为扩散模型典型缺陷。
+    weight: 14
+    keywords:
+      - texture_periodicity
+      - mode_collapse
+      - repeating_pattern
+    advanced_hint: 常见于脸颊、额头等低细节区域，可用傅里叶变换识别
+
+  - category: advanced_forensics
+    name: 瞳孔反光不对称/非物理倒影
+    description: 双目瞳孔反光点大小、位置或形状不一致，违反光学一致性。
+    weight: 15
+    keywords:
+      - asymmetric_reflection
+      - non_physical_glare
+      - pupil_mismatch
+    advanced_hint: 理想情况下，单一光源应在双眼中产生对称反光点
+
+  - category: advanced_forensics
+    name: 帧间动态水波纹/拖影效应
+    description: 在运动过程中，面部局部出现非物理性的‘涟漪’或‘拖影’。
+    weight: 16
+    keywords:
+      - watermarking_effect
+      - motion_smear
+      - temporal_ripples
+    advanced_hint: 使用帧差分析可揭示嘴角、下巴等区域的‘滞后形变’
+
+  - category: advanced_forensics
+    name: 色彩通道失真（如红通道溢出）
+    description: 面部某些颜色通道（尤其是红色）出现异常饱和或偏移。
+    weight: 12
+    keywords:
+      - color_channel_distortion
+      - red_overflow
+      - saturation_anomaly
+    advanced_hint: 常见于嘴唇周围，是合成光照补偿的副产品
+
+  - category: advanced_forensics
+    name: 微表情缺失（假笑）
+    description: 笑容仅限于嘴部，未引发眼轮匝肌收缩（无鱼尾纹）。
+    weight: 14
+    keywords:
+      - fake_smile
+      - no_crow's_feet
+      - emotion_mismatch
+    advanced_hint: 真实情感表达涉及多组肌肉联动，AI难以完全模拟
+
+  - category: advanced_forensics
+    name: 颈部与衣物交接‘硬边’阴影
+    description: 颈后与衣领交界处存在明显的‘断层’或‘直线阴影’。
+    weight: 13
+    keywords:
+      - hard_edge_shading
+      - neck_detach
+      - collar_discontinuity
+    advanced_hint: 表明换脸未考虑三维姿态与材质交互
+
+  - category: advanced_forensics
+    name: 背景物体随人物运动‘漂移’
+    description: 前景人物移动时，背景物体出现轻微错位或‘被拖拽’现象。
+    weight: 12
+    keywords:
+      - background_drift
+      - object_sticking
+      - depth_estimation_error
+    advanced_hint: 说明模型未做深度感知，属于贴图式替换
+
+scoring_threshold:
+  low_risk: 0
+  medium_risk: 30
+  high_risk: 60
+  critical_risk: 90
+
+version: "2.0"
+last_updated: "2025-04-05"
+notes: >
+  本版本基于 faceswapvideo.io 实测样本优化，新增 7 项高级伪造特征，
+  适用于高精度深度伪造检测场景。
