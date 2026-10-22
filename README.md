@@ -26,7 +26,7 @@
 |---|---|---|
 | 自建标注基准集 | 200 条（真实 100 + 伪造 100） | 伪造由 faceswapvideo.io（inswapper 系消费级换脸，与 FaceFusion 同源）生成 |
 | 自建留出集 | 160 条（真实 80 + 伪造 80） | 与基准集零重叠，冻结评估专用 |
-| 外部评测集 | 1600 条（真实 550 + 伪造 1050） | 主体为 FaceForensics++ c23 抽样：第一代换脸 676（Deepfakes 226 / FaceSwap 225 / DeepFakeDetection 225）、重演类 116（Face2Face 58 / NeuralTextures 58）、第二代 58（FaceShifter）、早期社区批次 200（待溯源） |
+| 外部评测集 | 2616 条（真实 550 + 伪造 2066） | 主体为 FaceForensics++ c23 抽样：第一代换脸 676（Deepfakes 226 / FaceSwap 225 / DeepFakeDetection 225）、重演类 632（Face2Face 324 / NeuralTextures 308）、第二代 558（FaceShifter）、早期社区批次 200（待溯源） |
 | 配对基准集 | 14 对 1080P | FaceFusion 自生成，配对对照实验 |
 
 > 视频数据不入库；标注规则见下文。训练注意：外部集的分辨率与伪造家族相关（如 DeepFakeDetection 全为 1080p），M1 数据管线需统一输入尺寸并打乱该关联，防止模型学到分辨率捷径。
@@ -63,7 +63,7 @@ python main.py
 - `export_evidence.py` — 导出证据图样例（纹理热力图 / 清晰度剖面 / 事件帧）
 - `analyze_self160.py` — 160 条留出集融合规则复测
 - `newfeat_extract.py` — 第四信号特征提取（rPPG / 频域 / 唇同步，纯 CV 无 API 调用）
-- `download_bench1100.py` / `download_bench_firstgen500.py` — 外部评测集下载工具（FF++ c23 远程抽样，含限流退避）
+- `download_bench1100.py` / `download_bench_firstgen500.py` / `download_bench_rest1000.py` — 外部评测集下载工具（FF++ c23 远程抽样，含限流退避与连接超时）
 
 ## 数据标注规则
 
