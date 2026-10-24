@@ -26,7 +26,7 @@
 |---|---|---|
 | 自建标注基准集 | 200 条（真实 100 + 伪造 100） | 伪造由 faceswapvideo.io（inswapper 系消费级换脸，与 FaceFusion 同源）生成 |
 | 自建留出集 | 160 条（真实 80 + 伪造 80） | 与基准集零重叠，冻结评估专用 |
-| 外部评测集 | 2616 条（真实 550 + 伪造 2066） | 主体为 FaceForensics++ c23 抽样：第一代换脸 676（Deepfakes 226 / FaceSwap 225 / DeepFakeDetection 225）、重演类 632（Face2Face 324 / NeuralTextures 308）、第二代 558（FaceShifter）、早期社区批次 200（待溯源） |
+| 外部评测集 | 3058 条（真实 550 + 伪造 2508） | 主体为 FaceForensics++ c23 抽样：第二代 1000（FaceShifter，全量抽齐）、第一代换脸 676（Deepfakes 226 / FaceSwap 225 / DeepFakeDetection 225）、重演类 632（Face2Face 324 / NeuralTextures 308）、早期社区批次 200（待溯源） |
 | 配对基准集 | 14 对 1080P | FaceFusion 自生成，配对对照实验 |
 
 > 视频数据不入库；标注规则见下文。训练注意：外部集的分辨率与伪造家族相关（如 DeepFakeDetection 全为 1080p），M1 数据管线需统一输入尺寸并打乱该关联，防止模型学到分辨率捷径。
