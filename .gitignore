@@ -58,3 +58,6 @@ __pycache__/
 Thumbs.db
 .DS_Store
 ~$*
+
+# 数据清单含标签，本地保留不入库
+data/*.csv
