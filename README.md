@@ -24,7 +24,7 @@
 
 | 数据集 | 规模 | 说明 |
 |---|---|---|
-| 自建标注基准集 | 200 条（真实 100 + 伪造 100） | 伪造由 faceswapvideo.io（inswapper 系消费级换脸，与 FaceFusion 同源）生成 |
+| 自建标注基准集 | 280 条（真实 100 + 伪造 180） | 伪造由 inswapper_128 引擎生成（F1–F100 经 faceswapvideo.io 网站；F101–F180 由本地同源换脸流水线批量生成） |
 | 自建留出集 | 160 条（真实 80 + 伪造 80） | 与基准集零重叠，冻结评估专用 |
 | 外部评测集 | 3058 条（真实 550 + 伪造 2508） | 主体为 FaceForensics++ c23 抽样：第二代 1000（FaceShifter，全量抽齐）、第一代换脸 676（Deepfakes 226 / FaceSwap 225 / DeepFakeDetection 225）、重演类 632（Face2Face 324 / NeuralTextures 308）、DF-VAE 200（DeeperForensics-1.0，按命名规律与论文溯源推断） |
 | 配对基准集 | 14 对 1080P | FaceFusion 自生成，配对对照实验 |
