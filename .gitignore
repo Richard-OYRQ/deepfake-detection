@@ -64,3 +64,10 @@ data/*.csv
 
 # 抽帧缓存（图片，不入库）
 data/frames_cache/
+
+# 论文PDF/素材/模型（本地保留）
+papers/
+_wildreal/
+_swap_models/
+_swap_source/
+_swap_output/
