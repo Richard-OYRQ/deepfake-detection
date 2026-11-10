@@ -22,8 +22,8 @@ class DeepfakeDataset(Dataset):
         if not self.rows:
             raise ValueError(f"划分 {split} 为空，先运行 m1_split.py 与 m1_build_frame_cache.py")
 
-    def _frame(self, name, i):
-        p = os.path.join(CACHE, f"{os.path.splitext(name)[0]}_{i}.jpg")
+    def _frame(self, nid, i):
+        p = os.path.join(CACHE, f"{nid}_{i}.jpg")   # 纯数字命名
         return PIL.Image.open(p).convert("RGB")
 
     def __len__(self):
@@ -32,6 +32,6 @@ class DeepfakeDataset(Dataset):
     def __getitem__(self, idx):
         r = self.rows[idx]
         i = random.randrange(K)  # 每轮随机选帧，配合随机裁剪增加多样性
-        img = self._frame(r["文件名"], i)
+        img = self._frame(r["编号"], i)
         label = 1 if r["标签"] == "fake" else 0
         return self.transforms(img), label

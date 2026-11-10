@@ -11,6 +11,9 @@ random.seed(20261101)
 with open(os.path.join(BASE, "data", "训练池清单.csv"), encoding="utf-8-sig") as f:
     rows = list(csv.DictReader(f))
 
+for i, r in enumerate(rows, 1):
+    r["编号"] = str(i)   # 行号编号：缓存文件用纯数字命名，规避中文文件名写入失败
+
 groups = {}
 for r in rows:
     key = (r["标签"], r["家族"])
@@ -27,7 +30,7 @@ for key, g in groups.items():
     val += [{**r, "划分": "val"} for r in g[n_test:n_test + n_val]]
     train += [{**r, "划分": "train"} for r in g[n_test + n_val:]]
 
-FIELDS = ["来源", "文件名", "标签", "家族", "宽", "高", "分辨率档", "大小MB", "划分"]
+FIELDS = ["编号", "来源", "文件名", "标签", "家族", "宽", "高", "分辨率档", "大小MB", "划分"]
 out = train + val + test
 with open(os.path.join(BASE, "data", "划分结果.csv"), "w", newline="",
           encoding="utf-8-sig") as f:

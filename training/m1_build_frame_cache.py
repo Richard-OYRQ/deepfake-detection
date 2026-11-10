@@ -6,6 +6,8 @@ import os
 
 import cv2
 
+from facecrop import crop_face_neck
+
 BASE = r"E:\deepfake"
 CACHE = os.path.join(BASE, "data", "frames_cache")
 K = 5
@@ -22,14 +24,15 @@ with open(os.path.join(BASE, "data", "训练池清单.csv"), encoding="utf-8-sig
     rows = list(csv.DictReader(f))
 
 
-def cached_name(name, i):
-    return f"{os.path.splitext(name)[0]}_{i}.jpg"
+def cached_name(nid, i):
+    return f"{nid}_{i}.jpg"   # 纯数字命名，规避中文文件名写入失败
 
 
 done = skip = fail = 0
 for n, r in enumerate(rows, 1):
     name = r["文件名"]
-    if all(os.path.exists(os.path.join(CACHE, cached_name(name, i)))
+    nid = str(n)
+    if all(os.path.exists(os.path.join(CACHE, cached_name(nid, i)))
            for i in range(K)):
         skip += 1
         continue
@@ -37,6 +40,7 @@ for n, r in enumerate(rows, 1):
     cap = cv2.VideoCapture(src)
     if not cap.isOpened():
         fail += 1
+        print(f"  打不开 {name}", flush=True)
         continue
     total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT) or 0)
     fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
@@ -48,12 +52,14 @@ for n, r in enumerate(rows, 1):
         ret, frame = cap.read()
         if not ret:
             continue
+        frame, _found = crop_face_neck(frame)   # 人脸+面颈裁剪（无脸回退原帧）
         h, w = frame.shape[:2]
         s = 256 / min(h, w)
         frame = cv2.resize(frame, (int(w * s), int(h * s)),
                            interpolation=cv2.INTER_AREA)
-        cv2.imwrite(os.path.join(CACHE, cached_name(name, i)), frame,
-                    [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+        if not cv2.imwrite(os.path.join(CACHE, cached_name(nid, i)), frame,
+                           [int(cv2.IMWRITE_JPEG_QUALITY), 90]):
+            continue
         ok += 1
     cap.release()
     if ok == K:

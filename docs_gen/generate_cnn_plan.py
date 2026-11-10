@@ -7,7 +7,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Pt, RGBColor, Cm
 
-OUT = r"E:\deepfake\研究文档\20261021_小模型训练方案一页纸.docx"
+OUT = r"E:\deepfake\研究文档\20261031_小模型训练方案一页纸.docx"
 
 
 def set_font(run, size=10.5, bold=False, ea="宋体", color=None):
@@ -87,9 +87,8 @@ head("二、训练数据")
 table(["数据来源", "数量", "用途"],
       [["自建标注基准集（真实+伪造成对）", "200 条", "训练/验证主集"],
        ["自建留出集（80真+80伪）", "160 条", "冻结评估集，不与训练重叠"],
-       ["外部评测集（公开换脸家族）", "100 条", "泛化测试"],
-       ["开源社区样本（FF++/DFDC/Celeb-DF）", "1100 条", "扩量训练（按家族分层抽样）"],
-       ["公开数据集（下载启动中）", "目标 1000+", "训练主体；含美颜/压缩/光照增强"]],
+       ["外部评测集（FF++ 为主体）", "3058 条", "扩量训练+泛化测试：第二代 1000 / 第一代 676 / 重演类 632 / 待溯源 200"],
+       ["公开数据集全量（FF++/DFDC/Celeb-DF）", "M3 前按需补", "训练主体扩量；含美颜/压缩/光照增强"]],
       [6.0, 2.2, 7.4])
 p = doc.add_paragraph(); p.paragraph_format.space_after = Pt(0)
 r = p.add_run("注：美颜/磨皮/压缩为最大混淆源，数据增强必须覆盖，否则训练不充分。")
